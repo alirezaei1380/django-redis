@@ -818,16 +818,20 @@ class DefaultClient:
     def sdiffstore(
             self,
             dest: Any,
+            key: Any,
             *keys,
-            version: Optional[int] = None,
+            versionDest: Optional[int] = None,
+            versionMinuend: Optional[int] = None,
+            versionSubtrahend: Optional[int] = None,
             client: Optional[Redis] = None,
     ) -> int:
         if client is None:
             client = self.get_client(write=True)
 
-        dest = self.make_key(dest, version=version)
-        keys = [self.make_key(key, version=version) for key in keys]
-        return int(client.sdiffstore(dest, *keys))
+        dest = self.make_key(dest, version=versionDest)
+        minuend_key = self.make_key(key, version=versionMinuend)
+        subtrahend_keys = [self.make_key(key_, version=versionSubtrahend) for key_ in keys]
+        return int(client.sdiffstore(dest, minuend_key, *subtrahend_keys))
 
 
     def sinter(
