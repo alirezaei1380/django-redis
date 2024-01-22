@@ -205,12 +205,20 @@ class RedisCache(BaseCache):
         return self.client.sinter(*args, **kwargs)
 
     @omit_exception
+    def sintercard(self, *args, **kwargs):
+        return self.client.sintercard(*args, **kwargs)
+
+    @omit_exception
     def sinterstore(self, *args, **kwargs):
         return self.client.sinterstore(*args, **kwargs)
 
     @omit_exception
     def sismember(self, *args, **kwargs):
         return self.client.sismember(*args, **kwargs)
+
+    @omit_exception
+    def smismember(self, *args, **kwargs):
+        return self.client.smismember(*args, **kwargs)
 
     @omit_exception
     def smembers(self, *args, **kwargs):
@@ -227,6 +235,10 @@ class RedisCache(BaseCache):
     @omit_exception
     def srandmember(self, *args, **kwargs):
         return self.client.srandmember(*args, **kwargs)
+
+    @omit_exception
+    def sscan(self, *args, **kwargs):
+        return self.client.sscan(*args, **kwargs)
 
     @omit_exception
     def srem(self, *args, **kwargs):
