@@ -820,17 +820,17 @@ class DefaultClient:
             dest: Any,
             key: Any,
             *keys,
-            versionDest: Optional[int] = None,
-            versionMinuend: Optional[int] = None,
-            versionSubtrahend: Optional[int] = None,
+            version_dest: Optional[int] = None,
+            version_minuend: Optional[int] = None,
+            version_subtrahend: Optional[int] = None,
             client: Optional[Redis] = None,
     ) -> int:
         if client is None:
             client = self.get_client(write=True)
 
-        dest = self.make_key(dest, version=versionDest)
-        minuend_key = self.make_key(key, version=versionMinuend)
-        subtrahend_keys = [self.make_key(key_, version=versionSubtrahend) for key_ in keys]
+        dest = self.make_key(dest, version=version_dest)
+        minuend_key = self.make_key(key, version=version_minuend)
+        subtrahend_keys = [self.make_key(key_, version=version_subtrahend) for key_ in keys]
         return int(client.sdiffstore(dest, minuend_key, *subtrahend_keys))
 
 
